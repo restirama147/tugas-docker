@@ -12,8 +12,8 @@ const {id} = useParams();
 const inputWidth = "600px"; 
 
 useEffect(() => {
-    getNoteById();
-},[]);
+    getNotesById();
+}, []);
 
 const updateNote = async (e) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const updateNote = async (e) => {
     }
 }
 
-const getNoteById = async () => {
+const getNotesById = async () => {
     const response = await axios.get(`${BASE_URL}/notes/${id}`);
     setJudul(response.data.judul);
     setIsi(response.data.isi);
