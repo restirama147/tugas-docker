@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils';
 
 const AddNote = () => {
 const [judul, setJudul] = useState("");
@@ -12,7 +13,7 @@ const inputWidth = "600px";
 const saveNote = async (e) => {
     e.preventDefault();
     try {
-        await axios.post('http://localhost:5000/buat-catatan',{
+        await axios.post(`${BASE_URL}/buat-catatan`,{
             judul,
             isi,
             kategori
