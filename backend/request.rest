@@ -1,0 +1,28 @@
+
+GET http://localhost:5000/notes
+
+###
+GET http://localhost:5000/notes/8
+
+###
+POST http://localhost:5000/buat-catatan
+Content-Type: application/json
+
+{
+    "judul" : "Rencana Hari jumat",
+    "isi" : "Senin saya akan pergi ke rumah nenek di Gunungkidul",
+    "kategori" : "Kegiatan"
+}
+
+###
+PUT  http://localhost:5000/edit-catatan/3
+Content-Type: application/json
+
+{
+    "judul" : "Pemrograman GUI di Python dengan vs code",
+    "isi" : "Besok saya akan mencoba membuat GUI sederhana untuk menangkap gambar dari webcam menggunakan Python",
+    "kategori" : "Pemrograman"
+}
+
+###
+delete http://localhost:5000/hapus-catatan/6
