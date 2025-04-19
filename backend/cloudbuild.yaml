@@ -12,7 +12,7 @@ steps:
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       [
-        "run",Z
+        "run",
         "deploy",
         "be",
         "--image",
