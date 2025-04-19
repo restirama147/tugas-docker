@@ -14,7 +14,7 @@ steps:
       [
         "run",
         "deploy",
-        "be",
+        "notes-resti-be",
         "--image",
         "gcr.io/$PROJECT_ID/notes-resti-be",
         "--timeout",
