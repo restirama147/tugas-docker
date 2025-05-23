@@ -1,7 +1,7 @@
 import {Sequelize} from "sequelize";
 
-const db = new Sequelize('catatan', 'root','inipasswordtugas3',{
-    host: '34.135.185.104',
+const db = new Sequelize('catatan', 'root','inipassword',{
+    host: '34.45.139.50',
     dialect: 'mysql'
 })
 
