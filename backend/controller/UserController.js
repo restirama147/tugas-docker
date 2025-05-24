@@ -1,8 +1,8 @@
 import Users from "../model/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
+
+// dotenv.config();
 
 export const Register = async (req, res) => {
     const { username, password, confirm_password } = req.body;

@@ -1,6 +1,5 @@
 import {Sequelize} from "sequelize";
 import dotenv from "dotenv";
-import { getEnv } from "../utils.js";
 
 dotenv.config();
 
@@ -9,7 +8,7 @@ const {
     DB_USERNAME: username,
     DB_PASSWORD: password,
     DB_NAME: database,
-} = getEnv();
+} = process.env();
 
 const db = new Sequelize(database, username, password, {
     host,
