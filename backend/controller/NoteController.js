@@ -16,18 +16,24 @@ export const getNotes = async(req, res)=>{
     }
 }
 
-// export const getNotesById = async (req, res) => {
-//     try {
-//         const response = await note.findOne({
-//             where: {
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json(response);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// };
+export const getNoteById = async (req, res) => {
+    try {
+        const catatan = await note.findOne({
+            where: {
+                id: req.params.id,
+                userId: req.user.id, // pastikan hanya ambil milik user yang login
+            }
+        });
+
+        if (!catatan) {
+            return res.status(404).json({ message: "Catatan tidak ditemukan" });
+        }
+
+        res.status(200).json(catatan);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 //Buat Catatan
 export const createNote = async(req, res)=>{
@@ -55,7 +61,7 @@ export const updateNote = async (req, res) => {
     const userId = req.user.id;
     const { judul, isi, kategori } = req.body;
     try {
-        const notes = await note.create({
+        const notes = await note.update({
             judul,
             isi,
             kategori,

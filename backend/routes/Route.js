@@ -1,5 +1,5 @@
 import express from "express";
-import {createNote, getNotes, updateNote, deleteNote} from "../controller/NoteController.js";
+import {createNote, getNotes, getNoteById, updateNote, deleteNote} from "../controller/NoteController.js";
 import { Register, Login, refreshToken, logout } from "../controller/UserController.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/notes", verifyToken, getNotes);
 
 //endpoint get by id
-router.get("/notes/:id", verifyToken, getNotes);
+router.get("/notes/:id", verifyToken, getNoteById);
 
 //endpoint create data note
 router.post('/buat-catatan', verifyToken, createNote);
