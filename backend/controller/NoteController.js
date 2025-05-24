@@ -55,7 +55,7 @@ export const updateNote = async (req, res) => {
     const userId = req.user.id;
     const { judul, isi, kategori } = req.body;
     try {
-        const notes = await note.create({
+        const notes = await note.update({
             judul,
             isi,
             kategori,
