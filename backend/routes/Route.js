@@ -25,8 +25,4 @@ router.post("/login", Login);
 router.get("/token", refreshToken);
 router.delete("/logout", logout);
 
-router.all("*", (req, res) => {
-    res.status(404).json({ message: "Route not found" });
-});
-
 export default router;
