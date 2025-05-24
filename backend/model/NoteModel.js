@@ -1,19 +1,21 @@
-import {Sequelize} from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
-import { title } from "process";
-import sequelize from "sequelize";
 
-const note = db.define('notes',{
-    judul:{type: Sequelize.STRING, allowNull:false},
-    isi: Sequelize.STRING,
-    kategori: Sequelize.STRING},{
+const note = db.define(
+    "notes",
+    {
+        id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        judul: { type: DataTypes.STRING, allowNull: false },
+        isi: { type: DataTypes.STRING, allowNull: false },
+        kategori: { type: DataTypes.STRING, allowNull: false },
+        userId: { type: DataTypes.INTEGER, allowNull: false },
+    },
+    {
         freezeTableName: true,
-        createdAt :'Tanggal_dibuat',
-        updatedAt: 'Tanggal_diupdate'
+        timestamps: true,
+        createdAt: "Tanggal_dibuat",
+        updatedAt: "Tanggal_diupdate",
     }
 );
 
 export default note;
-
-(async()=>{
-    await db.sync();})();

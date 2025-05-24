@@ -1,3 +1,30 @@
+### 📌 REGISTER Admin (tabel admin) 
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+"username": "admin", 
+"password": "admin123",
+"confirm_password": "admin123"
+}
+
+###
+
+### 🔐 LOGIN Admin (untuk mendapatkan token) 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+"username": "admin", 
+"password": "admin123"
+}
+
+###
+
+### 🔑 GANTI TOKEN DI SINI SETELAH LOGIN 
+@token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTc0Nzk4NDg4NiwiZXhwIjoxNzQ3OTg1Nzg2fQ.6RNIGwe0bcthn5vV7_TMM4KUWVtR6vncQ8_sqtIXNhg"
+
+###
 
 GET http://localhost:5000/notes
 
@@ -26,3 +53,24 @@ Content-Type: application/json
 
 ###
 delete http://localhost:5000/hapus-catatan/6
+
+###
+POST http://localhost:5000/notes
+Content-Type: application/json
+
+{
+    "username": "123",
+    "password": "123",
+    "confirm_password": "123"
+}
+
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "username": "123",
+    "password": "123",
+    "confirm_password": "123"
+}
+
