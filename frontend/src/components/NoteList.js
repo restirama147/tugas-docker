@@ -52,7 +52,7 @@ const NoteList = () => {
                 <h1 className="title has-text-centered has-text-info">
                     Catatan
                 </h1>
-                <Link to={`/add`} className='button is-success mb-3'>Buat Catatan Baru</Link>
+                <Link to={`/buat-catatan`} className='button is-success mb-3'>Buat Catatan Baru</Link>
                 <table className='table is-striped is-fullwidth'>
                     <thead className="has-background-info has-text-white">
                         <tr>
