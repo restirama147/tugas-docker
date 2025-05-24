@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BASE_URL } from '../utils';
-import useAuth from "../auth/useAuth"; // tambahkan ini
+import useAuth from "../auth/useAuth";
 
 const NoteList = () => {
     const [notes, setNote] = useState([]);
-    const { accessToken } = useAuth(); // ambil token
+    const { accessToken } = useAuth();
 
     useEffect(() => {
         const getNotes = async () => {
@@ -19,13 +19,14 @@ const NoteList = () => {
                 setNote(response.data);
             } catch (error) {
                 console.error("Gagal mengambil catatan:", error);
+                setNote([]); // Pastikan tetap array agar tidak error
             }
         };
 
         if (accessToken) {
             getNotes();
         }
-    }, [accessToken]); // rerun saat accessToken berubah
+    }, [accessToken]);
 
     const deleteNote = async (id) => {
         try {
@@ -64,20 +65,28 @@ const NoteList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {notes.map((note, index) => (
-                            <tr key={note.id}>
-                                <td>{index + 1}</td>
-                                <td>{note.judul}</td>
-                                <td>{note.isi}</td>
-                                <td>{note.kategori}</td>
-                                <td>
-                                    <div className="is-flex is-justify-content-space-between gap-2" style={{ width: "110px" }}>
-                                        <Link to={`/edit-catatan/${note.id}`} className="button is-small is-info">Edit</Link>
-                                        <button onClick={() => deleteNote(note.id)} className="button is-small is-warning">Hapus</button>
-                                    </div>
+                        {Array.isArray(notes) && notes.length === 0 ? (
+                            <tr>
+                                <td colSpan="5" className="has-text-centered has-text-grey">
+                                    Belum ada catatan. Silakan buat catatan baru.
                                 </td>
                             </tr>
-                        ))}
+                        ) : (
+                            notes.map((note, index) => (
+                                <tr key={note.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{note.judul}</td>
+                                    <td>{note.isi}</td>
+                                    <td>{note.kategori}</td>
+                                    <td>
+                                        <div className="is-flex is-justify-content-space-between gap-2" style={{ width: "110px" }}>
+                                            <Link to={`/edit-catatan/${note.id}`} className="button is-small is-info">Edit</Link>
+                                            <button onClick={() => deleteNote(note.id)} className="button is-small is-warning">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>
