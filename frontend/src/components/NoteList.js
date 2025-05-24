@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils';
 import useAuth from "../auth/useAuth";
 
 const NoteList = () => {
     const [notes, setNotes] = useState([]);
-    const { accessToken } = useAuth();
+    const { accessToken, logout } = useAuth();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getNotes = async () => {
             try {
                 setLoading(true);
                 setError(null);
-
                 const response = await axios.get(`${BASE_URL}/notes`, {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 });
-
-                console.log("📦 Response dari backend:", response.data);
-
-                // Ambil data catatan dari berbagai kemungkinan struktur response
                 const dataNotes = response.data?.data ?? response.data?.notes ?? response.data ?? [];
                 setNotes(Array.isArray(dataNotes) ? dataNotes : []);
             } catch (err) {
@@ -34,9 +30,7 @@ const NoteList = () => {
             }
         };
 
-        if (accessToken) {
-            getNotes();
-        }
+        if (accessToken) getNotes();
     }, [accessToken]);
 
     const deleteNote = async (id) => {
@@ -45,11 +39,9 @@ const NoteList = () => {
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
 
-            // Refresh catatan setelah hapus
             const response = await axios.get(`${BASE_URL}/notes`, {
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
-
             const dataNotes = response.data?.data ?? response.data?.notes ?? response.data ?? [];
             setNotes(Array.isArray(dataNotes) ? dataNotes : []);
         } catch (error) {
@@ -57,11 +49,16 @@ const NoteList = () => {
         }
     };
 
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (
-        <div className="columns mt-5 is-centered">
+        <div className="columns mt-5 is-centered" style={{ position: "relative", minHeight: "100vh" }}>
             <div className="column is-half">
                 <h1 className="title has-text-centered has-text-info">Catatan</h1>
                 <Link to={`/buat-catatan`} className='button is-success mb-3'>Buat Catatan Baru</Link>
@@ -98,6 +95,20 @@ const NoteList = () => {
                     </table>
                 )}
             </div>
+
+            {/* Tombol logout di pojok kanan bawah */}
+            <button 
+                onClick={handleLogout} 
+                className="button is-danger is-light"
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    zIndex: 999
+                }}
+            >
+                Logout
+            </button>
         </div>
     );
 };
