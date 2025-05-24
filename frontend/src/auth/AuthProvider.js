@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import Cookies from "js-cookie";
-import axios from "../api/axiosInterceptor";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { BASE_URL } from "../utils.js";
 
