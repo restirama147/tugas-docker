@@ -72,7 +72,7 @@ const NoteList = () => {
                                 <td>{note.kategori}</td>
                                 <td>
                                     <div className="is-flex is-justify-content-space-between gap-2" style={{ width: "110px" }}>
-                                        <Link to={`/edit/${note.id}`} className="button is-small is-info">Edit</Link>
+                                        <Link to={`/edit-catatan/${note.id}`} className="button is-small is-info">Edit</Link>
                                         <button onClick={() => deleteNote(note.id)} className="button is-small is-warning">Hapus</button>
                                     </div>
                                 </td>

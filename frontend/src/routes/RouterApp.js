@@ -2,8 +2,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
 import LoginPage from "../components/Login"; 
 import RegisterPage from "../components/Register";
-import note from "../components/NoteList.js";
 import ProtectedRoute from "../components/ProtectedRoute";
+import NoteList from "../components/NoteList.js";
 
 function RouterApp() {
     return (
@@ -17,7 +17,7 @@ function RouterApp() {
             path="/notes"
             element={
                 <ProtectedRoute>
-                <note />
+                    <NoteList />
                 </ProtectedRoute>
             }
             />

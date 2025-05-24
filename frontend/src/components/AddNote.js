@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils';
+import useAuth from "../auth/useAuth"; // ✅ Tambahkan ini
 
 const AddNote = () => {
     const [judul, setJudul] = useState("");
     const [isi, setIsi] = useState("");
     const [kategori, setKategori] = useState("");
     const navigate = useNavigate();
+    const { accessToken } = useAuth(); // ✅ Ambil token dari konteks auth
     const inputWidth = "600px";
 
     const saveNote = async (e) => {
@@ -23,8 +25,13 @@ const AddNote = () => {
                 judul,
                 isi,
                 kategori
+            }, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}` // ✅ Sertakan token
+                }
             });
-            navigate("/");
+
+            navigate("/notes"); // ✅ Arahkan ke halaman daftar catatan
         } catch (error) {
             console.error("Gagal menyimpan catatan:", error);
             alert("Terjadi kesalahan saat menyimpan.");
