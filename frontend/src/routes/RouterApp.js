@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
-import LoginPage from "../components/LoginPage"; 
-import RegisterPage from "../components/RegisterPage";
+import LoginPage from "../components/Login"; 
+import RegisterPage from "../components/Register";
 import note from "../components/NoteList.js";
 import ProtectedRoute from "../components/ProtectedRoute";
 
