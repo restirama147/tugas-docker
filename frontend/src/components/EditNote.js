@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  useCallback} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import { BASE_URL } from '../utils';
@@ -15,26 +15,26 @@ const EditNote = () => {
     const inputWidth = "600px";
 
     useEffect(() => {
-        getNoteById();
-    }, [getNoteById]);
+        const getNoteById = async () => {
+            try {
+                const response = await axios.get(`${BASE_URL}/notes/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+                setJudul(response.data.judul);
+                setIsi(response.data.isi);
+                setKategori(response.data.kategori);
+            } catch (error) {
+                console.error("Gagal mengambil data catatan:", error);
+                alert("Catatan tidak ditemukan.");
+                navigate("/notes");
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const getNoteById = useCallback(async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/notes/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
-            setJudul(response.data.judul);
-            setIsi(response.data.isi);
-            setKategori(response.data.kategori);
-        } catch (error) {
-            console.error("Gagal mengambil data catatan:", error);
-            alert("Catatan tidak ditemukan.");
-            navigate("/notes");
-        } finally {
-            setLoading(false);
-        }
+        getNoteById();
     }, [id, accessToken, navigate]);
 
     const updateNote = async (e) => {
@@ -50,10 +50,10 @@ const EditNote = () => {
                 judul, isi, kategori
             }, {
                 headers: {
-                    Authorization: `Bearer ${accessToken}` // ✅ Sertakan token
+                    Authorization: `Bearer ${accessToken}`
                 }
             });
-            navigate("/notes"); // ✅ Arahkan ke daftar catatan
+            navigate("/notes");
         } catch (error) {
             console.error("Gagal update catatan:", error);
             alert("Gagal memperbarui catatan.");
@@ -106,8 +106,15 @@ const EditNote = () => {
                             />
                         </div>
                     </div>
-                    <div className='field'>
-                        <button type='submit' className='button is-success'>Update</button>
+                    <div className='field is-grouped'>
+                        <div className='control'>
+                            <button type='submit' className='button is-success'>Update</button>
+                        </div>
+                        <div className='control'>
+                            <button type='button' className='button is-light' onClick={() => navigate("/notes")}>
+                                Kembali
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
