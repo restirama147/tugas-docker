@@ -1,6 +1,6 @@
 steps:
   - name: "gcr.io/cloud-builders/gsutil"
-    args: ["cp", "${_ENV}", "env/.env"]
+    args: ["cp", "${_ENV}", ".env"]
     dir: "backend"
 
   # Membuat image dengan perintah "cloud build -t gcr.io/$PROJECT_ID/notes-resti-be ."
