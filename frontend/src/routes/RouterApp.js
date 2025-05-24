@@ -3,6 +3,8 @@ import LoginPage from "../components/Login";
 import RegisterPage from "../components/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
 import NoteList from "../components/NoteList.js";
+import AddNote from "../components/AddNote.js";
+import EditNote from "../components/EditNote.js";
 
 function RouterApp() {
     return (
