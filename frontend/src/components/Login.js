@@ -18,7 +18,7 @@ const LoginPage = () => {
         try {
             const result = await login(username, password);
             if (result) {
-                navigate("/dashboard");
+                navigate("/notes");
             } else {
                 alert("Login gagal");
             }
