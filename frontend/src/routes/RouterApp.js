@@ -4,8 +4,7 @@ import LoginPage from "../components/LoginPage";
 import RegisterPage from "../components/RegisterPage";
 import note from "../components/NoteList.js";
 import ProtectedRoute from "../components/ProtectedRoute";
-import note from "../components/AddNote.js";
-import note from "../components/EditNote.js";
+
 function RouterApp() {
     return (
         <Router>
