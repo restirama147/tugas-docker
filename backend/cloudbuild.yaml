@@ -21,7 +21,7 @@ steps:
         "deploy",
         "notes-resti-be",
         "--image",
-        "gcr.io/$PROJECT_ID/notes-resti-be",
+        "gcr.io/$PROJECT_ID/notes-resti-be:${SHORT_SHA}",
         "--timeout",
         "1000s",
         "--port",
