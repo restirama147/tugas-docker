@@ -5,7 +5,7 @@ import { BASE_URL } from '../utils';
 import useAuth from "../auth/useAuth";
 
 const NoteList = () => {
-    const [notes, setNote] = useState([]);
+    const [notes, setNotes] = useState([]);
     const { accessToken } = useAuth();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -15,25 +15,20 @@ const NoteList = () => {
             try {
                 setLoading(true);
                 setError(null);
+
                 const response = await axios.get(`${BASE_URL}/notes`, {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 });
 
-                // Cek apakah data benar array
-                let dataNotes = [];
-                if (Array.isArray(response.data)) {
-                    dataNotes = response.data;
-                } else if (Array.isArray(response.data.notes)) {
-                    dataNotes = response.data.notes;
-                } else {
-                    dataNotes = [];
-                }
+                console.log("📦 Response dari backend:", response.data);
 
-                setNote(dataNotes);
+                // Ambil data catatan dari berbagai kemungkinan struktur response
+                const dataNotes = response.data?.data ?? response.data?.notes ?? response.data ?? [];
+                setNotes(Array.isArray(dataNotes) ? dataNotes : []);
             } catch (err) {
                 console.error("Gagal mengambil catatan:", err);
                 setError("Gagal memuat catatan.");
-                setNote([]);
+                setNotes([]);
             } finally {
                 setLoading(false);
             }
@@ -49,14 +44,14 @@ const NoteList = () => {
             await axios.delete(`${BASE_URL}/hapus-catatan/${id}`, {
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
-            // Refresh data setelah hapus
+
+            // Refresh catatan setelah hapus
             const response = await axios.get(`${BASE_URL}/notes`, {
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
-            const dataNotes = Array.isArray(response.data)
-                ? response.data
-                : (Array.isArray(response.data.notes) ? response.data.notes : []);
-            setNote(dataNotes);
+
+            const dataNotes = response.data?.data ?? response.data?.notes ?? response.data ?? [];
+            setNotes(Array.isArray(dataNotes) ? dataNotes : []);
         } catch (error) {
             console.log("Gagal menghapus:", error);
         }
@@ -81,7 +76,7 @@ const NoteList = () => {
                                 <th>Judul</th>
                                 <th>Isi</th>
                                 <th>Kategori</th>
-                                <th>Actions</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
