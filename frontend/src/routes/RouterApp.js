@@ -2,9 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "../components/Login"; 
 import RegisterPage from "../components/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
-import NoteList from "../components/NoteList";
-import AddNote from "../components/AddNote"; // ✅ Tambah
-import EditNote from "../components/EditNote"; // ✅ Tambah jika butuh juga
+import NoteList from "../components/NoteList.js";
 
 function RouterApp() {
     return (
